@@ -14,6 +14,16 @@ class EncryptionTest {
     private final Encryption encryption = createEncryption();
 
     @Test
+    void decryptEmail() throws Exception {
+        String emailContent = FileUtils.loadFile("EncryptedEmail.txt");
+
+        String decryptedEmailContent = encryption.decrypt(emailContent);
+
+        System.out.println(decryptedEmailContent);
+        assertThat(decryptedEmailContent).isNotEmpty();
+    }
+
+    @Test
     void encryptString() throws Exception {
         String encryptedText = encryption.encrypt("Unlock Your Potential with the Advent Of Craft Calendar!");
         assertThat(encryptedText)
