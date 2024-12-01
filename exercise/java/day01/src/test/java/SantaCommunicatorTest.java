@@ -1,3 +1,4 @@
+import communication.Reindeer;
 import communication.SantaCommunicator;
 import doubles.TestLogger;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,17 +21,14 @@ class SantaCommunicatorTest {
 
     @Test
     void composeMessage() {
-        var message = communicator.composeMessage(DASHER, NORTH_POLE, 5, numberOfDayBeforeChristmas);
+        var message = communicator.composeMessage(new Reindeer(DASHER, NORTH_POLE, 5), numberOfDayBeforeChristmas);
         assertThat(message).isEqualTo("Dear Dasher, please return from North Pole in 17 day(s) to be ready and rest before Christmas.");
     }
 
     @Test
     void shouldDetectOverdueReindeer() {
         var overdue = communicator.isOverdue(
-                DASHER,
-                NORTH_POLE,
-                numberOfDayBeforeChristmas,
-                numberOfDayBeforeChristmas,
+                new Reindeer(DASHER, NORTH_POLE, numberOfDayBeforeChristmas), numberOfDayBeforeChristmas,
                 logger);
 
         assertThat(overdue).isTrue();
@@ -42,10 +40,7 @@ class SantaCommunicatorTest {
     void shouldReturnFalseWhenNoOverdue() {
         assertThat(
                 communicator.isOverdue(
-                        DASHER,
-                        NORTH_POLE,
-                        numberOfDayBeforeChristmas - numberOfDaysToRest - 1,
-                        numberOfDayBeforeChristmas,
+                        new Reindeer(DASHER, NORTH_POLE, numberOfDayBeforeChristmas - numberOfDaysToRest - 1), numberOfDayBeforeChristmas,
                         logger)
         ).isFalse();
     }

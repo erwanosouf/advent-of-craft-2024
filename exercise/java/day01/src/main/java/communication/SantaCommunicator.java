@@ -7,16 +7,16 @@ public class SantaCommunicator {
         this.numberOfDaysToRest = numberOfDaysToRest;
     }
 
-    public String composeMessage(String reindeerName, String currentLocation, int numbersOfDaysForComingBack, int numberOfDaysBeforeChristmas) {
-        var daysBeforeReturn = daysBeforeReturn(numbersOfDaysForComingBack, numberOfDaysBeforeChristmas);
+    public String composeMessage(Reindeer reindeer, int numberOfDaysBeforeChristmas) {
+        var daysBeforeReturn = daysBeforeReturn(reindeer.numbersOfDaysForComingBack(), numberOfDaysBeforeChristmas);
 
-        return "Dear " + reindeerName + ", please return from " + currentLocation +
+        return "Dear " + reindeer.reindeerName() + ", please return from " + reindeer.currentLocation() +
                 " in " + daysBeforeReturn + " day(s) to be ready and rest before Christmas.";
     }
 
-    public boolean isOverdue(String reindeerName, String currentLocation, int numbersOfDaysForComingBack, int numberOfDaysBeforeChristmas, Logger logger) {
-        if (daysBeforeReturn(numbersOfDaysForComingBack, numberOfDaysBeforeChristmas) <= 0) {
-            logger.log("Overdue for " + reindeerName + " located " + currentLocation + ".");
+    public boolean isOverdue(Reindeer reindeer, int numberOfDaysBeforeChristmas, Logger logger) {
+        if (daysBeforeReturn(reindeer.numbersOfDaysForComingBack(), numberOfDaysBeforeChristmas) <= 0) {
+            logger.log("Overdue for " + reindeer.reindeerName() + " located " + reindeer.currentLocation() + ".");
             return true;
         }
         return false;
